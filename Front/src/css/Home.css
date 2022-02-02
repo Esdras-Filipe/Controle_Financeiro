@@ -1,0 +1,39 @@
+.container-charts {
+    background-color: #111827;
+    margin-top: 3rem;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.container-charts2 {
+    background-color: #111827;
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
+.container-charts3 {
+    background-color: #111827;
+    margin-top: 1rem;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+/*#1BC47D*/
+
+.line {
+    height: 0.1rem;
+    width: 100%;
+    background-color: rgba(169, 169, 169, 0.6);
+
+}
+
+.page {
+    width: 100%;
+    padding: 2.5rem;
+}
+
+
+h3 {
+    color: #fff;
+    margin-bottom: -2rem;
+}
