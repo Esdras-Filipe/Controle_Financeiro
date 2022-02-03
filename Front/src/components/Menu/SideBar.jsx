@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { SideBarData } from './SideBarData';
 import './SideBar.css';
 import { IconContext } from 'react-icons';
@@ -7,6 +7,8 @@ import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 
 function SideBar() {
+    const [toggle, setToggle] = useState(false);
+
     return <>
         <IconContext.Provider value={{ color: '#A9A9A9', size: "18" }}>
             <div>
@@ -17,10 +19,10 @@ function SideBar() {
                             {SideBarData.map((item, index) => {
                                 return (
                                     <li className='nav-text' key={index}>
-                                        <Link to={item.path} >
+                                        <NavLink to={item.path} activeClassName="active">
                                             {item.icon}
-                                            <span>{item.title}</span>
-                                        </Link>
+                                            <span >{item.title}</span>
+                                        </NavLink >
                                     </li>
                                 );
                             })

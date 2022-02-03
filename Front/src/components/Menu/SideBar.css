@@ -16,7 +16,7 @@
 }
 
 .span-tittle {
-    color: #6B7274;
+    color: #F9FAFC;
     height: 10px;
     margin-left: 1.5rem;
     font-size: 15px;
@@ -42,7 +42,7 @@
 
 .nav-text a {
     text-decoration: none;
-    color: #D1C5B7;
+    color: #F9FAFC;
 }
 
 .nav-text:hover {
@@ -52,11 +52,11 @@
     border-radius: 10px;
 }
 
-.nav-text:hover a {
-    color: #1BC47D;
-}
-
 span {
     font-size: 16px;
     font-family: 'Lato', sans-serif;
+}
+
+.active *{
+    color: #1BC47D;
 }

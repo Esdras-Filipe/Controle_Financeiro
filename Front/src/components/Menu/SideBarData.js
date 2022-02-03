@@ -11,14 +11,20 @@ export const SideBarData = [
         className: "nav-text"
     },
     {
-        title: "Lançamentos",
-        path: "/Lancamento",
+        title: "Despesas",
+        path: "/Despesas",
         icon: <IoIcons.IoIosAddCircle />,
         className: "nav-text"
     },
     {
         title: "Balancete",
         path: "/Balancete",
+        icon: <AiIcons.AiFillHome />,
+        className: "nav-text"
+    },
+    {
+        title: "Proventos",
+        path: "/Proventos",
         icon: <AiIcons.AiFillHome />,
         className: "nav-text"
     }

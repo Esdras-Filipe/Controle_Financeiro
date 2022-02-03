@@ -39,7 +39,7 @@ export default function GraphDespesas() {
                         {
                             label: 'Despesas',
                             data: valores,
-                            backgroundColor: 'rgba(255, 20, 20, 0.6)',
+                            backgroundColor: 'rgba(255, 20, 20, 0.9)',
                         }
                     ],
                 };

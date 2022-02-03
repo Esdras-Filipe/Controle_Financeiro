@@ -57,7 +57,7 @@ function Lancamentos() {
                 </IconContext.Provider>
             </Modal>
             <h2>Lançamentos de Despesas</h2>
-            <Grid container direction="row" spacing={2} sx={{ marginTop: 10 }}>
+            <Grid container direction="row" spacing={2} sx={{ marginTop: 5 }}>
                 <Grid item xs={3}>
                     <CurrencyTextField label="Valor Pago    " value={valor} onChange={(e) => { setValor(e.target.value) }} />
                 </Grid>

@@ -3,7 +3,8 @@ import SideBar from "./components/Menu/SideBar";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import Lancamentos from './pages/Lancamentos';
+import Despesas from './pages/Despesas';
+import Proventos from './pages/Proventos';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const themeDark = createTheme({
@@ -30,7 +31,8 @@ export default function App() {
             <div className="side-bar rigth">
               <Routes>
                 <Route exact path="/" element={<Home />} />
-                <Route path="/Lancamento" element={<Lancamentos />} />
+                <Route path="/Despesas" element={<Despesas />} />
+                <Route path="/Proventos" element={<Proventos />} />
               </Routes>
             </div>
           </BrowserRouter>
