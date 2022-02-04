@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import api from '../../api';
+import api from '../../../api';
 
-export default function GraphDespesas() {
-    const [componente, setComponente] = useState(<></>);
+// eslint-disable-next-line import/no-anonymous-default-export
+export default props => {
+    const [componente, setComponente] = useState(<div className='container-charts skeleton'></div>);
 
     ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -12,7 +13,7 @@ export default function GraphDespesas() {
     var labels = [];
 
     useEffect(() => {
-        api.get('graphs/despesas').then((response) => {
+        api.get('graphs/proventos').then((response) => {
             var dados = response.data.data;
             if (response.data.status === 'success') {
                 for (var chave in dados) {
@@ -28,7 +29,12 @@ export default function GraphDespesas() {
                         },
                         title: {
                             display: true,
-                            text: 'Despesas nos Ultimos 6 Meses',
+                            text: 'Proventos nos Ultimos 6 Meses',
+                            color: 'rgba(169, 169, 169, 0.6)',
+                            fullSize: true,
+                            font: {
+                                size: 14
+                            }
                         },
                     }
                 };
@@ -37,18 +43,22 @@ export default function GraphDespesas() {
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Despesas',
+                            label: 'Proventos',
                             data: valores,
-                            backgroundColor: 'rgba(255, 20, 20, 0.9)',
+                            backgroundColor: 'rgb(16, 185, 129)',
                         }
                     ],
                 };
-                setComponente(<Bar options={options} data={data} />)
+                setComponente(
+                    <div className='container-charts'>
+                        <Bar options={options} data={data} />
+                    </div>
+                )
             }
         }).catch(erro => {
             console.log(erro)
         })
-    }, [])
+    }, []);
 
-    return componente
+    return componente;
 };

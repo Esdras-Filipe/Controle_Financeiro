@@ -26,3 +26,12 @@ CREATE TABLE IF NOT EXISTS Despesas (
     CONSTRAINT Metodo_Pagamento FOREIGN KEY (Id_Metodo_Pagamento) REFERENCES Metodo_Pagamento(Id_Metodo) ON DELETE SET NULL,
     CONSTRAINT Categoria_Despesa FOREIGN KEY (Id_Categoria_Despesa) REFERENCES Categoria(Id_Categoria) ON DELETE SET NULL
 );
+
+CREATE TABLE IF NOT EXISTS Proventos(
+    Id_Provento INT AUTO_INCREMENT,
+    Valor_Provento DOUBLE NOT NULL DEFAULT 0.00,
+    Data_Provento DATETIME DEFAULT NOW(),
+    Evento_Fixo ENUM('S','N') DEFAULT 'N',
+    Descricao_Provento VARCHAR(80),
+    PRIMARY KEY (Id_Provento)
+);

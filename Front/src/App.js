@@ -5,11 +5,12 @@ import './App.css';
 import Home from './pages/Home';
 import Despesas from './pages/Despesas';
 import Proventos from './pages/Proventos';
+import Header from './components/Header/Header';
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const themeDark = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     background: {
       default: "#fff"
     },
@@ -29,6 +30,7 @@ export default function App() {
               <SideBar />
             </div>
             <div className="side-bar rigth">
+              <Header />
               <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route path="/Despesas" element={<Despesas />} />

@@ -1,14 +1,18 @@
 .container-charts {
     background-color: #111827;
+    /* background-color: #fff;*/
     margin-top: 3rem;
     border-radius: 10px;
     padding: 1rem;
+    height: 20rem;
+    border: 1px solid rgba(169, 169, 169, 0.6);
 }
 
 .container-charts2 {
     background-color: #111827;
     margin-top: 1rem;
     border-radius: 10px;
+    height: 20rem;
 }
 
 .container-charts3 {
@@ -16,6 +20,7 @@
     margin-top: 1rem;
     border-radius: 10px;
     padding: 1rem;
+    height: 20rem;
 }
 
 /*#1BC47D*/
@@ -32,8 +37,17 @@
     padding: 2.5rem;
 }
 
+.skeleton {
+    opacity: 5;
+    animation: skeleton-loading 2s linear infinite alternate;
+}
 
-h3 {
-    color: #fff;
-    margin-bottom: -2rem;
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(200, 20%, 70%);
+    }
+
+    100% {
+        background-color: hsl(200, 20%, 95%);
+    }
 }

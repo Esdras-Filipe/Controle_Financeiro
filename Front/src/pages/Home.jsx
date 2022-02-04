@@ -1,7 +1,9 @@
 import { React, useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import '../css/Home.css';
-import GraphDespesas from '../components/Graphs/Despesas';
+import GraphDespesas from '../components/Graphs/Despesas/Despesas';
+import GraphProventos from '../components/Graphs/Proventos/Proventos';
+import GraphInveProve from '../components/Graphs/Investimentos/Proventos';
 
 export default function Home() {
     const [Mensagem, setMensagem] = useState('');
@@ -26,14 +28,10 @@ export default function Home() {
                 <h2>{Mensagem}</h2>
                 <Grid container spacing={5}>
                     <Grid item xs={6} >
-                        <div className='container-charts'>
-                            <GraphDespesas />
-                        </div>
+                        <GraphDespesas />
                     </Grid>
                     <Grid item xs={6} >
-                        <div className='container-charts'>
-
-                        </div>
+                        <GraphProventos />
                     </Grid>
                     <Grid item xs={24} >
                         <h3>Investimentos</h3>
@@ -48,9 +46,7 @@ export default function Home() {
                         </div>
                     </Grid>
                     <Grid item xs={6} >
-                        <div className='container-charts3'>
-
-                        </div>
+                        <GraphInveProve />
                     </Grid>
                 </Grid>
             </div>

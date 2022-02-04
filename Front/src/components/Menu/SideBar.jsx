@@ -19,7 +19,7 @@ function SideBar() {
                             {SideBarData.map((item, index) => {
                                 return (
                                     <li className='nav-text' key={index}>
-                                        <NavLink to={item.path} activeClassName="active">
+                                        <NavLink to={item.path} activeclassname="active">
                                             {item.icon}
                                             <span >{item.title}</span>
                                         </NavLink >
