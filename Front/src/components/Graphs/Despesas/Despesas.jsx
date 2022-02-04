@@ -33,7 +33,6 @@ export default function GraphDespesas() {
                             display: true,
                             text: 'Despesas nos Ultimos 6 Meses',
                             color: 'rgba(169, 169, 169, 0.6)',
-                            fullSize: true,
                             font: {
                                 size: 14
                             }
@@ -53,7 +52,7 @@ export default function GraphDespesas() {
                 };
                 setComponente(
                     <div className='container-charts'>
-                        <Bar options={options} data={data} />
+                        <Bar options={options} data={data}/>
                     </div>
                 )
             }
