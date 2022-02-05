@@ -4,6 +4,7 @@ import '../css/Home.css';
 import GraphDespesas from '../components/Graphs/Despesas/Despesas';
 import GraphProventos from '../components/Graphs/Proventos/Proventos';
 import GraphInveProve from '../components/Graphs/Investimentos/Proventos';
+import TableInvestimentos from '../components/Graphs/Investimentos/InvestimentosTable';
 
 export default function Home() {
     const [Mensagem, setMensagem] = useState('');
@@ -37,13 +38,7 @@ export default function Home() {
                         <h3>Investimentos</h3>
                     </Grid>
                     <Grid item xs={6} >
-                        <div className='container-charts2'>
-                            <div style={{ display: 'flex', height: '19rem' }}>
-                                <div style={{ flexGrow: 1 }}>
-
-                                </div>
-                            </div>
-                        </div>
+                        <TableInvestimentos />
                     </Grid>
                     <Grid item xs={6} >
                         <GraphInveProve />

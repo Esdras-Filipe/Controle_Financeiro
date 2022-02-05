@@ -36,5 +36,15 @@ CREATE TABLE IF NOT EXISTS Proventos(
     PRIMARY KEY (Id_Provento)
 );
 
+CREATE TABLE IF NOT EXISTS Investimentos(
+	Id_Investimento INT AUTO_INCREMENT,
+    Codigo_Investimentos VARCHAR(10) NOT NULL,
+    Data_Investimento DATETIME DEFAULT NOW(),
+    Quantidade_Investimento INT DEFAULT 0,
+    Valor_Investimento DOUBLE DEFAULT 0.00,
+    Categoria INT NOT NULL,
+    PRIMARY KEY  (Id_Investimento)
+);
+
 
 ##Teste

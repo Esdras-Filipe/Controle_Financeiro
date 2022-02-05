@@ -13,19 +13,25 @@ export const SideBarData = [
     {
         title: "Despesas",
         path: "/Despesas",
-        icon: <IoIcons.IoIosAddCircle />,
+        icon: <IoIcons.IoIosRemoveCircle />,
         className: "nav-text"
     },
     {
         title: "Balancete",
         path: "/Balancete",
-        icon: <AiIcons.AiFillHome />,
+        icon: <FaIcons.FaBalanceScale />,
         className: "nav-text"
     },
     {
         title: "Proventos",
         path: "/Proventos",
-        icon: <AiIcons.AiFillHome />,
+        icon: <IoIcons.IoIosAddCircle />,
+        className: "nav-text"
+    },
+    {
+        title: "Investimentos",
+        path: "/Investimentos",
+        icon: <AiIcons.AiOutlineStock />,
         className: "nav-text"
     }
 ];

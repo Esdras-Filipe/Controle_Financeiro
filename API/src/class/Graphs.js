@@ -6,7 +6,7 @@ class Graphs extends DB {
         super();
     }
 
-    getDespesas() {
+    async getDespesas() {
         return new Promise((resolve, reject) => {
             let query =
                 `SELECT 
@@ -38,7 +38,7 @@ class Graphs extends DB {
         })
     }
 
-    getProventos() {
+    async getProventos() {
         return new Promise((resolve, reject) => {
             let query =
                 `SELECT 
@@ -70,6 +70,28 @@ class Graphs extends DB {
         })
     }
 
+    async getInvestimentos() {
+        return new Promise((resolve, reject) => {
+            let query =
+                `SELECT 
+                    Codigo_Investimentos          AS Codigo_Investimentos
+                    ,SUM(Valor_Investimento)      AS Valor_Investimentos
+                    ,SUM(Quantidade_Investimento) AS Qtde_Ativos
+                    , CASE 
+                        WHEN Categoria = 1 THEN 'CDB'
+                        WHEN Categoria = 2 THEN "FII'S"
+                    END AS Tipo_Investimento 
+                FROM 
+                    Investimentos 
+                GROUP BY 
+                    TRIM(Codigo_Investimentos);`;
+            this.exceSelect(query).then((rows) => {
+                resolve(rows)
+            }).catch(() => {
+                reject();
+            })
+        })
+    }
 }
 
 module.exports = Graphs;

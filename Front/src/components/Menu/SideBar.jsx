@@ -7,8 +7,6 @@ import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 
 function SideBar() {
-    const [toggle, setToggle] = useState(false);
-
     return <>
         <IconContext.Provider value={{ color: '#A9A9A9', size: "18" }}>
             <div>

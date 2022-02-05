@@ -1,33 +1,17 @@
 var express = require('express');
 var router = express.Router();
-const Proventos = require('../class/Proventos');
+const Investimentos = require('../class/Investimentos');
 
 router.get('/', async function (req, res) {
 
 });
 
-router.get('/balancete', async function (req, res) {
-    const proventos = new Proventos();
-
-    proventos.balancete().then(response => {
-        res.status(200).send({
-            status: "success",
-            data: {
-                ...response
-            }
-        })
-    }).catch(error => {
-        console.log(error)
-        res.status(500)
-    });
-});
-
 router.post('/', function (req, res) {
     let body = { ...req.body };
 
-    const proventos = new Proventos(body);
+    const investimentos = new Investimentos(body);
 
-    proventos.insert().then((response) => {
+    investimentos.insert().then((response) => {
         res.status(200).send({
             status: "success"
         });

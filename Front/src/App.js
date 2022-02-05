@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import Despesas from './pages/Despesas';
 import Proventos from './pages/Proventos';
 import Header from './components/Header/Header';
+import Investimentos from './pages/Investimentos';
+import Balancete from "./pages/Balancete";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const themeDark = createTheme({
@@ -34,7 +36,9 @@ export default function App() {
               <Routes>
                 <Route exact path="/" element={<Home />} />
                 <Route path="/Despesas" element={<Despesas />} />
+                <Route path="/Balancete" element={<Balancete />} />
                 <Route path="/Proventos" element={<Proventos />} />
+                <Route path="/Investimentos" element={<Investimentos />} />
               </Routes>
             </div>
           </BrowserRouter>

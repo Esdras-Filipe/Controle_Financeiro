@@ -33,4 +33,21 @@ router.get('/proventos', async function (req, res) {
     });
 });
 
+router.get('/investimentos', async function (req, res) {
+    let graph = new Graphs();
+
+    graph.getInvestimentos().then(response => {
+        console.log(response)
+        res.status(200).send({
+            status: "success",
+            data: {
+                ...response
+            }
+        })
+    }).catch(error => {
+        console.log(error)
+        res.status(500)
+    });
+});
+
 module.exports = router;
