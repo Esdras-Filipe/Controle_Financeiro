@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as IoIcons from 'react-icons/io';
 import * as GrIcons from 'react-icons/gr';
-import { Container, Grid, TextField, FormControl, InputLabel, Select, MenuItem, Fab } from '@mui/material';
+import { Container, Grid, TextField, FormControl, InputLabel, Select, MenuItem, Fab, Alert } from '@mui/material';
 import CurrencyTextField from '../components/CurrencyInput';
 import api from '../api';
 
@@ -15,7 +15,11 @@ export default () => {
     const [eventoFixo, setEvenFixo] = useState('S');
     const [descricao, setDescricao] = useState('');
 
-    function limpaCampos() {
+    const [msg, setMsg] = useState("");
+    const [exibiMsg, setExibiMsg] = useState(false);
+    const [tipoAlerta, setTipoAlerta] = useState("success");
+
+    function resetaForm() {
         setValor('');
         setData(dataAtual);
         setEvenFixo('S');
@@ -23,19 +27,49 @@ export default () => {
     }
 
     function adicionaProvento() {
+
+        if (valor == "") {
+            setExibiMsg(true)
+            setMsg("Necessário Informar o Valor do Provento!");
+            setTipoAlerta("warning");
+            resetaMsg();
+            return false;
+        }
+
+        if (descricao == "") {
+            setExibiMsg(true)
+            setMsg("Necessário Informar uma Descrição para o Provento!");
+            setTipoAlerta("warning");
+            resetaMsg();
+            return false;
+        }
+
         api.post('proventos ', {
             valor: valor.replace("R$", "").replace(".", "").replace(",", "."),
             data: data,
             eventoFixo: eventoFixo,
             descricao: descricao,
         }).then((response) => {
-            alert('Cadastrado')
-            limpaCampos();
+            setExibiMsg(true)
+            setMsg("Despesa Cadastrada Com Sucesso!");
+            setTipoAlerta("success");
+            resetaMsg();
+            resetaForm();
         }).catch((response) => {
+            setExibiMsg(true)
+            setMsg("Ocorreu um Erro ao Cadastrar a Despesa. Favor Conferir!");
+            setTipoAlerta("error");
+            resetaMsg();
         });
     }
 
-    return (<>
+    async function resetaMsg() {
+        setTimeout(() => {
+            setExibiMsg(false);
+        }, 7000)
+    }
+
+    return (
         <Container spacing={24} sx={{ marginTop: 2, height: '98.1vh' }}>
             <h2>Lançamento de Proventos</h2>
             <Grid container direction="row" spacing={2} sx={{ marginTop: 5 }}>
@@ -75,12 +109,14 @@ export default () => {
                     </Fab>
                 </Grid>
                 <Grid item xs={1} >
-                    <Fab color="secondary" aria-label="add" onClick={limpaCampos}>
+                    <Fab color="secondary" aria-label="add" onClick={resetaForm}>
                         <GrIcons.GrPowerReset size={20} />
                     </Fab>
                 </Grid>
             </Grid>
 
+            {exibiMsg ? <Alert severity={tipoAlerta} sx={{ marginTop: 10 }}>{msg}</Alert> : false}
+
         </Container>
-    </>);
+    );
 }

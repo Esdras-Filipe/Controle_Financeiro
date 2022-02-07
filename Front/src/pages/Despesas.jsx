@@ -3,8 +3,7 @@ import * as IoIcons from 'react-icons/io';
 import * as GrIcons from 'react-icons/gr';
 import * as AiIcons from 'react-icons/ai';
 import { IconContext } from 'react-icons';
-import { Container, Grid, TextField, Select, MenuItem, InputLabel, FormControl, Fab } from '@mui/material/';
-import Modal from '../components/modal/Modal'
+import { Container, Grid, TextField, Select, MenuItem, InputLabel, FormControl, Fab, Alert } from '@mui/material/';
 import api from '../api';
 import CurrencyTextField from '../components/CurrencyInput';
 
@@ -17,7 +16,10 @@ function Lancamentos() {
     const [carteira, setCarteira] = useState(1);
     const [dataPagamento, setDataPagamento] = useState(dataAtual);
     const [descricao, setDescricao] = useState('');
-    const [modal, setModal] = useState(false);
+
+    const [msg, setMsg] = useState("");
+    const [exibiMsg, setExibiMsg] = useState(false);
+    const [tipoAlerta, setTipoAlerta] = useState("success");
 
     function resetaForm() {
         setCategoria(1);
@@ -27,10 +29,23 @@ function Lancamentos() {
         setDescricao('');
     }
 
-    const closeModal = () => setModal(false);
-    const openModal = () => setModal(true);
-
     function registraDados() {
+        if (valor == "") {
+            setExibiMsg(true)
+            setMsg("Necessário Informar o Valor da Despesa!");
+            setTipoAlerta("warning");
+            resetaMsg();
+            return false;
+        }
+
+        if (descricao == "") {
+            setExibiMsg(true)
+            setMsg("Necessário Informar uma Descrição para a Despesa!");
+            setTipoAlerta("warning");
+            resetaMsg();
+            return false;
+        }
+
         api.post('Lancamentos', {
             valor: valor.replace("R$", "").replace(".", "").replace(",", "."),
             categoria: categoria,
@@ -39,23 +54,33 @@ function Lancamentos() {
             descricao: descricao
         }).then((response) => {
             if (response.data.status === "success") {
-                openModal();
+                setExibiMsg(true)
+                setMsg("Despesa Cadastrada Com Sucesso!");
+                setTipoAlerta("success");
+                resetaMsg();
                 resetaForm();
             } else {
-                console.log("deu erro");
+                setExibiMsg(true)
+                setMsg("Ocorreu um Erro ao Cadastrar o Provento. Favor Conferir!");
+                setTipoAlerta("warning");
+                resetaMsg();
             }
         }).catch((response) => {
+            setExibiMsg(true)
+            setMsg("Ocorreu um Erro ao Cadastrar o Provento. Favor Conferir!");
+            setTipoAlerta("error");
+            resetaMsg();
         });
+    }
+
+    async function resetaMsg() {
+        setTimeout(() => {
+            setExibiMsg(false);
+        }, 7000)
     }
 
     return (
         <Container spacing={24} sx={{ marginTop: 2, height: '98.1vh' }}>
-            <Modal abrir={modal} onClose={closeModal} width={500}>
-                <p>Despesa Cadastrada com Sucesso!</p>
-                <IconContext.Provider value={{ color: 'rgba(0, 255, 0, 0.7)' }}>
-                    <AiIcons.AiOutlineCheckCircle size={200} />
-                </IconContext.Provider>
-            </Modal>
             <h2>Lançamentos de Despesas</h2>
             <Grid container direction="row" spacing={2} sx={{ marginTop: 5 }}>
                 <Grid item xs={3}>
@@ -139,6 +164,8 @@ function Lancamentos() {
                     </Fab>
                 </Grid>
             </Grid>
+
+            {exibiMsg ? <Alert severity={tipoAlerta} sx={{ marginTop: 10 }}>{msg}</Alert> : false}
 
         </Container>
     );

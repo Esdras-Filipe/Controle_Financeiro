@@ -12,7 +12,7 @@ class DB {
                 host: '127.0.0.1',
                 port: '3306',
                 user: 'root',
-                password: "E215487369s",
+                password: "root",
                 database: 'ControleFinanceiro'
             }).then((connection) => {
                 resolve(connection);
