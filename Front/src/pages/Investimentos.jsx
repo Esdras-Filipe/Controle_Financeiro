@@ -44,7 +44,7 @@ export default props => {
 
     return (
         <>
-            <Container sx={{ marginTop: 3 }}>
+            <Container sx={{ marginTop: 3, height: '98.1vh' }}>
                 <h2>Lançamentos de Investimentos</h2>
                 <Grid container spacing={2} sx={{ marginTop: 5 }}>
                     <Grid item xs={3}>

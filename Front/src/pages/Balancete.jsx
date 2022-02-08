@@ -24,9 +24,9 @@ export default props => {
         <>
             <Container sx={{ marginTop: 2, height: '98.1vh' }}>
                 <h2>Balancente Contábil</h2>
-                <Grid container direction="row" spacing={2} sx={{ marginLeft: 123 }} >
-                    <Grid item xs={3}>
-                        <Card sx={{ maxHeight: 35, maxWidth: 220 }}>
+                <Grid container direction="row" spacing={2} >
+                    <Grid item xs={12} fullWidth>
+                        <Card sx={{ maxHeight: 35, maxWidth: 240, marginLeft: 110}}  >
                             <Typography sx={{ fontSize: 17, color: 'red' }} gutterBottom>
                                 <Grid container alignItems="center" justifyContent="center">
                                     <Grid item xs={7} >
