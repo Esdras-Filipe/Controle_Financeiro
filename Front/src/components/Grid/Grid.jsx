@@ -15,23 +15,25 @@ export default (props) => {
         campos: props.campos,
       })
       .then((response) => {
-        let dados = response.data.data;
-        let linhas = "";
-        let arrayDados = [];
+        let data = [];
+        let Header = [];
 
-        let segundoDados = [];
+        for (var chave in response.data.data) {
+          let linhas = "";
+          let valor = "";
 
-        console.log(props.data);
+          linhas += "{";
+          linhas += ` "id" : "${chave}"`;
+          props.data.forEach((elem, index) => {
+            if (chave == 0) {
+              Header.push(`{"field": "col${index}",
+              "headerName": "${elem.descricao}",
+              "width": "${elem.width ?? 200}"}`);
+            }
 
-        props.data.forEach((elem, index) => {
-          for (var chave in response.data.data) {
-            let valor = dados[chave][elem.campoBD];
-
-            linhas += `
-            {"id": ${chave}`;
+            valor = response.data.data[chave][elem.campoBD];
 
             if (elem.hasOwnProperty("tipo")) {
-              //Significa que eu tenho que formatar o valor, se nao e apenas uma string
               if (elem.tipo == "moeda") {
                 valor = valor.toLocaleString("pt-br", {
                   style: "currency",
@@ -47,19 +49,17 @@ export default (props) => {
                   valor.getFullYear();
               }
             }
-          }
-          segundoDados.push(
-            `{
-            "field": "col${index}",
-            "headerName": "${elem.descricao}",
-            "width": ${elem.width ?? 150}
-          }`
-          );
-        });
 
-        console.log(linhas);
+            linhas += ",";
+            linhas += `"col${index}": "${valor}"`;
+          });
 
-        setHeader(JSON.parse("[" + segundoDados.join(",") + "]"));
+          linhas += "}";
+          data.push(linhas);
+        }
+
+        setHeader(JSON.parse("[" + Header.join(",") + "]"));
+        setData(JSON.parse("[" + data.join(",") + "]"));
       })
       .catch((error) => {
         console.log(error);
