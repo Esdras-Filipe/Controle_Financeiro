@@ -1,17 +1,19 @@
 .container-items {
-    background-color: #F9FAFC;
-    width: 100%;
-    height: 100vh;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #000;
+  /* #373737  f9fafc*/
+  width: 100%;
+  height: 100vh;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .box-login {
-    padding: 2rem;
-    width: 40rem;
-    height: 20rem;
-    border-radius: 15px;
-    border: 1px solid #EDF2F7;
+  padding: 2rem;
+  width: 40rem;
+  height: 20rem;
+  border-radius: 15px;
+  border: 1px solid #edf2f7;
+  background-color: #f9fafc;
 }

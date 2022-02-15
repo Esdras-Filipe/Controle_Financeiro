@@ -45,6 +45,3 @@ CREATE TABLE IF NOT EXISTS Investimentos(
     Categoria INT NOT NULL,
     PRIMARY KEY  (Id_Investimento)
 );
-
-
-##Teste
