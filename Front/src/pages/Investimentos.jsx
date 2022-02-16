@@ -86,7 +86,7 @@ export default (props) => {
           setTipoAlerta("warning");
         }
       })
-      .catch((response) => {});
+      .catch((response) => { });
   }
 
   return (
@@ -190,30 +190,39 @@ export default (props) => {
 
         <TableData
           table="Investimentos"
-          campos="Codigo_Investimentos, Data_Investimento, Quantidade_Investimento, Valor_Investimento"
+          campos={`Codigo_Investimentos, Data_Investimento, IF(Quantidade_Investimento = 0, "", Quantidade_Investimento) AS Quantidade_Investimento, Valor_Investimento, CASE WHEN Categoria = 1 THEN "FII'S" ELSE 'CDB' END AS Categoria`}
           data={[
             {
               descricao: "Codigo",
               width: 300,
               campoBD: "Codigo_Investimentos",
+              align: "left"
             },
             {
               descricao: "Data",
-              width: 300,
+              width: 200,
               tipo: "dataBR",
               campoBD: "Data_Investimento",
             },
             {
               descricao: "Quantidade",
-              width: 300,
+              width: 200,
               tipo: "numero",
               campoBD: "Quantidade_Investimento",
+              align: "right"
             },
             {
               descricao: "Valor",
-              width: 300,
+              width: 200,
               tipo: "moeda",
               campoBD: "Valor_Investimento",
+              align: "right"
+            },
+            {
+              descricao: "Categoria",
+              width: 300,
+              tipo: "valor",
+              campoBD: "Categoria",
             },
           ]}
         ></TableData>

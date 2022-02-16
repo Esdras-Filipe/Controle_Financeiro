@@ -28,7 +28,10 @@ export default (props) => {
             if (chave == 0) {
               Header.push(`{"field": "col${index}",
               "headerName": "${elem.descricao}",
-              "width": "${elem.width ?? 200}"}`);
+              "width": "${elem.width ?? 200}",
+              "headerAlign": "${elem.align ?? "center"}",
+              "align": "${elem.align ?? "center"}"
+            }`);
             }
 
             valor = response.data.data[chave][elem.campoBD];

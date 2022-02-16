@@ -177,24 +177,32 @@ export default () => {
           alert("Teste");
         }}
         table="proventos"
-        campos="Descricao_Provento, Data_Provento, Valor_Provento"
+        campos="Descricao_Provento, Data_Provento, Valor_Provento, CASE WHEN Evento_Fixo = 'S' THEN  'SIM' ELSE 'Nao' END AS Evento_Fixo"
         data={[
           {
             descricao: "Descricao",
             width: 300,
             campoBD: "Descricao_Provento",
+            align: "left"
           },
           {
             descricao: "Data",
-            width: 300,
+            width: 200,
             tipo: "dataBR",
             campoBD: "Data_Provento",
           },
           {
             descricao: "Valor",
-            width: 300,
+            width: 200,
             tipo: "moeda",
             campoBD: "Valor_Provento",
+            align: "right"
+          },
+          {
+            descricao: "Evento Fixo",
+            width: 300,
+            tipo: "moeda",
+            campoBD: "Evento_Fixo",
           },
         ]}
         header="Descricao, Data, Valor"

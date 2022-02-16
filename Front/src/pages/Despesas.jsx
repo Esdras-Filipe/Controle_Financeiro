@@ -231,25 +231,37 @@ function Lancamentos() {
 
       <TableData
         listen={Listen}
-        table="Despesas"
-        campos="Descricao_Despesa, Data_Despesa, Valor_Despesa"
+        table="Despesas LEFT JOIN Metodo_Pagamento ON Id_Metodo = Id_Metodo_Pagamento LEFT JOIN Categoria ON Id_Categoria = Id_Categoria_Despesa"
+        campos="Descricao_Despesa, Data_Despesa, Valor_Despesa, Nome_Metodo, Nome_Categoria"
         data={[
           {
             descricao: "Descricao",
             width: 300,
             campoBD: "Descricao_Despesa",
+            align: "left"
           },
           {
             descricao: "Data",
-            width: 300,
+            width: 200,
             tipo: "dataBR",
             campoBD: "Data_Despesa",
           },
           {
             descricao: "Valor",
-            width: 300,
+            width: 200,
             tipo: "moeda",
             campoBD: "Valor_Despesa",
+            align: "right"
+          },
+          {
+            descricao: "Metodo Pagamento",
+            width: 300,
+            campoBD: "Nome_Metodo",
+          },
+          {
+            descricao: "Categoria",
+            width: 250,
+            campoBD: "Nome_Categoria",
           },
         ]}
       ></TableData>
