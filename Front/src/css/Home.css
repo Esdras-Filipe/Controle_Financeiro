@@ -4,7 +4,6 @@
     margin-top: 3rem;
     border-radius: 10px;
     padding: 1rem;
-   
     border: 1px solid rgba(169, 169, 169, 0.6);
 }
 
@@ -12,7 +11,8 @@
     background-color: #111827;
     margin-top: 1rem;
     border-radius: 10px;
-    height: 20rem;
+    padding: 1rem;
+    height: 27rem;
 }
 
 .container-charts3 {
@@ -20,7 +20,7 @@
     margin-top: 1rem;
     border-radius: 10px;
     padding: 1rem;
-    height: 20rem;
+    height: 27rem;
 }
 
 /*#1BC47D*/

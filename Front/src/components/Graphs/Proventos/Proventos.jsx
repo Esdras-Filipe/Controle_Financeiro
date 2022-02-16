@@ -51,7 +51,7 @@ export default props => {
                 };
                 setComponente(
                     <div className='container-charts'>
-                        <Bar options={options} data={data} />
+                        <Bar options={options} data={data} height="120" />
                     </div>
                 )
             }

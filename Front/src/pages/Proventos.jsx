@@ -173,6 +173,9 @@ export default () => {
       )}
 
       <TableData
+        onCellDoubleClick={(e) => {
+          alert("Teste");
+        }}
         table="proventos"
         campos="Descricao_Provento, Data_Provento, Valor_Provento"
         data={[

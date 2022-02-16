@@ -3,7 +3,6 @@ import { TableCell, TableRow, Paper, Table, TableHead, TableContainer, TableBody
 
 import api from '../../../api';
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
     const [componente, setComponente] = useState(<div className='container-charts2 skeleton'></div>);
     var linhas = [];
