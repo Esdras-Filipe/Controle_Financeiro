@@ -15,7 +15,6 @@ export default props => {
         var teste = 0;
         api.get('graphs/investimentos').then((response) => {
             var dados = response.data.data;
-            console.log(dados)
             if (response.data.status === 'success') {
                 for (var obj in dados) {
                     teste += dados[obj].Valor_Investimentos;
@@ -31,25 +30,25 @@ export default props => {
 
                 setComponente(
                     <div className='container-charts2'>
-                        <TableContainer >
-                            <Table>
-                                <TableHead>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
                                     <TableCell align="left" sx={{ color: '#ccc' }} >Código</TableCell>
                                     <TableCell align="right" sx={{ color: '#ccc' }}>Quantidade</TableCell>
                                     <TableCell align="right" sx={{ color: '#ccc' }}>Valor</TableCell>
                                     <TableCell align="center" sx={{ color: '#ccc' }}>Tipo</TableCell>
-                                </TableHead>
-                                <TableBody>
-                                    {linhas.map((elem) => {
-                                        return elem;
-                                    })}
-                                    <TableRow key="Teste">
-                                        <TableCell colSpan={2} sx={{ color: '#ccc' }}>Total</TableCell>
-                                        <TableCell align="right" sx={{ color: '#ccc' }}>{formataValores(teste)}</TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {linhas.map((elem) => {
+                                    return elem;
+                                })}
+                                <TableRow key="Teste">
+                                    <TableCell colSpan={2} sx={{ color: '#ccc' }}>Total</TableCell>
+                                    <TableCell align="right" sx={{ color: '#ccc' }}>{formataValores(teste)}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
                     </div>
                 );
             }

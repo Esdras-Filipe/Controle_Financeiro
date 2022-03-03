@@ -37,7 +37,22 @@ router.get('/investimentos', async function (req, res) {
     let graph = new Graphs();
 
     graph.getInvestimentos().then(response => {
-        console.log(response)
+        res.status(200).send({
+            status: "success",
+            data: {
+                ...response
+            }
+        })
+    }).catch(error => {
+        console.log(error)
+        res.status(500)
+    });
+});
+
+router.get('/rendimentos', async function (req, res) {
+    let graph = new Graphs();
+
+    graph.getRendimentos().then(response => {
         res.status(200).send({
             status: "success",
             data: {

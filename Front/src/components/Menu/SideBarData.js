@@ -33,5 +33,11 @@ export const SideBarData = [
         path: "/Investimentos",
         icon: <AiIcons.AiOutlineStock />,
         className: "nav-text"
+    },
+    {
+        title: "Rendimentos",
+        path: "/Rendimentos",
+        icon: <AiIcons.AiOutlineBarChart />,
+        className: "nav-text"
     }
 ];

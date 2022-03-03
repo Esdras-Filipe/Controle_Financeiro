@@ -1,0 +1,36 @@
+.row {
+    display: flex;
+}
+
+.tittle {
+    display: flex;
+    width: 50%;
+}
+
+.card {
+    width: 50%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    float: right;
+}
+
+.value-card{
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #fff;
+    width: 35%;
+    height: 40%;
+
+}
+
+.negativo:first-child{
+    color: red;
+}
+
+.positivo:first-child{
+    color: green;
+}

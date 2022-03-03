@@ -26,15 +26,18 @@ export default function GraphDespesas() {
                         legend: {
                             position: 'top',
                             labels: {
-                                color: "rgba(169, 169, 169, 0.6)"
+                                color: "rgba(169, 169, 169, 0.6)",
+                                font: {
+                                    size: 16
+                                }
                             },
                         },
                         title: {
                             display: true,
-                            text: 'Despesas nos Ultimos 6 Meses',
+                            text: 'Despesas nos Últimos 12 Meses',
                             color: 'rgba(169, 169, 169, 0.6)',
                             font: {
-                                size: 14
+                                size: 17
                             }
                         },
                     }

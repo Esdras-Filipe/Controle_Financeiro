@@ -45,3 +45,11 @@ CREATE TABLE IF NOT EXISTS Investimentos(
     Categoria INT NOT NULL,
     PRIMARY KEY  (Id_Investimento)
 );
+
+CREATE TABLE IF NOT EXISTS Rendimentos(
+	Id_Rendimento INT AUTO_INCREMENT,
+    Codigo_Rendimento VARCHAR(10) NOT NULL,
+    Data_Rendimento DATETIME DEFAULT NOW(),
+    Valor_Rendimento DOUBLE DEFAULT 0.00,
+	PRIMARY KEY (Id_Rendimento)    
+);

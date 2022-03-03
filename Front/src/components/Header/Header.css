@@ -1,29 +1,24 @@
-.group {
-    height: 4rem;
+.group{
     background-color: #F9FAFC;
-    width: 83%;
-    position: fixed;
+    display: flex;
+    height: 4rem;
+    position: relative;
+    width: 100%;
+    justify-content: end;
     border-bottom: 0.1rem solid rgba(169, 169, 169, 0.6);
-    padding: 0.3rem;
-    flex: 1;
-    flex-direction: row;
 }
 
-.container2 {
-    width: 30%;
-    float: right;
-    flex: 1;
+.options{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 7rem !important;
 }
 
 .avatar-img {
     border-radius: 50%;
     width: 3rem;
-    background-color: #000;
     height: 3rem;
-}
-
-.options {
+    background-color: #000;
     float: right;
-    margin-top: -0.3rem;
-    margin-right: 2.5rem;
 }

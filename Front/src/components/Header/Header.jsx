@@ -1,11 +1,11 @@
 import React from "react";
 import Button from '@mui/material/Button';
-import { Menu, IconButton } from '@mui/material';
+import { Menu, IconButton, TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import './Header.css';
+import img from "../../img/user_img.jpeg"
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default props => {
 
     return (
@@ -16,8 +16,7 @@ export default props => {
                         {(popupState) => (
                             <React.Fragment>
                                 <IconButton {...bindTrigger(popupState)}>
-                                    <div className="avatar-img">
-                                    </div>
+                                    <img className="avatar-img" src={img} />
                                 </IconButton>
                                 <Menu {...bindMenu(popupState)}>
                                     <MenuItem onClick={popupState.close}>Profile</MenuItem>
@@ -28,7 +27,6 @@ export default props => {
                         )}
                     </PopupState>
                 </div>
-
             </div>
         </div>
     )

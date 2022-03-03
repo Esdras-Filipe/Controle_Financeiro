@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import * as IoIcons from "react-icons/io";
 import * as GrIcons from "react-icons/gr";
 import * as AiIcons from "react-icons/ai";
+import * as FiIcons from "react-icons/fi";
 import { IconContext } from "react-icons";
 import {
   Container,
@@ -17,22 +18,18 @@ import {
 import api from "../api";
 import CurrencyTextField from "../components/CurrencyInput";
 import TableData from "../components/Grid/Grid";
+import SearchInput from "../components/SearchField/TextFieldSearch";
 
 function Lancamentos() {
-  const dataAtual =
-    new Date().getFullYear() +
-    "-" +
-    (new Date().getMonth() + 1).toString().padStart(2, 0) +
-    "-" +
-    new Date().getDate().toString().padStart(2, 0);
+  const dataAtual = new Date().getFullYear() + "-" + (new Date().getMonth() + 1).toString().padStart(2, 0) + "-" + new Date().getDate().toString().padStart(2, 0);
 
   const [categoria, setCategoria] = useState(1);
   const [valor, setValor] = useState("");
   const [carteira, setCarteira] = useState(1);
   const [dataPagamento, setDataPagamento] = useState(dataAtual);
   const [descricao, setDescricao] = useState("");
+  const [listen, setListen] = useState(false);
 
-  const [Listen, setListen] = useState(false);
   const [msg, setMsg] = useState("");
   const [exibiMsg, setExibiMsg] = useState(false);
   const [tipoAlerta, setTipoAlerta] = useState("success");
@@ -43,6 +40,52 @@ function Lancamentos() {
     setCarteira(1);
     setValor("");
     setDescricao("");
+    setListen(!listen);
+  }
+
+  async function populaDadosGrid(evento) {
+    let elemento = document.querySelector("#Id_Despesa");
+    elemento.value = evento.row.col0;
+    await elemento.dispatchEvent(new Event('input', { bubbles: true }));
+    document.querySelector("#button-search").dispatchEvent(new Event('click', { bubbles: true }));
+  }
+
+  function excluiRegistro() {
+    let elemento = document.querySelector("#Id_Despesa");
+
+    if (elemento.getAttribute("popula") != 'false') {
+      alert(elemento.value);
+      api
+        .delete(`Lancamentos?id=${elemento.value}`, {
+          id: elemento.value
+        })
+        .then((response) => {
+          if (response.data.status === "success") {
+            setExibiMsg(true);
+            setMsg("Despesa Excluida Com Sucesso!");
+            setTipoAlerta("success");
+            resetaMsg();
+            resetaForm();
+          } else {
+            setExibiMsg(true);
+            setMsg("Ocorreu um Erro ao Excluir a Despesa. Favor Conferir!");
+            setTipoAlerta("warning");
+            resetaMsg();
+          }
+        })
+        .catch((response) => {
+          setExibiMsg(true);
+          setMsg("Ocorreu um Erro ao Excluir a Despesa. Favor Conferir!");
+          setTipoAlerta("error");
+          resetaMsg();
+        });
+    } else {
+      setExibiMsg(true);
+      setMsg("Nao Existe Despesa com esse ID para ser excluida!");
+      setTipoAlerta("warning");
+      resetaMsg();
+      return false;
+    }
   }
 
   function registraDados() {
@@ -79,14 +122,14 @@ function Lancamentos() {
           resetaForm();
         } else {
           setExibiMsg(true);
-          setMsg("Ocorreu um Erro ao Cadastrar o Provento. Favor Conferir!");
+          setMsg("Ocorreu um Erro ao Cadastrar a Despesa. Favor Conferir!");
           setTipoAlerta("warning");
           resetaMsg();
         }
       })
       .catch((response) => {
         setExibiMsg(true);
-        setMsg("Ocorreu um Erro ao Cadastrar o Provento. Favor Conferir!");
+        setMsg("Ocorreu um Erro ao Cadastrar a Despesa. Favor Conferir!");
         setTipoAlerta("error");
         resetaMsg();
       });
@@ -106,43 +149,35 @@ function Lancamentos() {
     >
       <h2>Lançamentos de Despesas</h2>
       <Grid container direction="row" spacing={2} sx={{ marginTop: 5 }}>
+        <Grid item xs={4}>
+          <SearchInput placeholder="Codigo" label="Codigo" table="Despesas" primarykey="Id_Despesa" id="Id_Despesa" listen={listen.toString()} />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField id="Descricao_Despesa" label="Descrição" size="small" fullWidth value={descricao} onInput={e => { setDescricao(e.target.value) }} />
+        </Grid>
         <Grid item xs={3}>
-          <CurrencyTextField
-            label="Valor Pago    "
-            value={valor}
-            onChange={(e) => {
-              setValor(e.target.value);
-            }}
+          <CurrencyTextField id="Valor_Despesa" label="Valor Pago" value={valor} onInput={(e) => { setValor(e.target.value) }}
           />
         </Grid>
         <Grid item xs={4}>
-          <TextField
-            label="Descrição"
-            variant="outlined"
-            size="small"
-            fullWidth
-            value={descricao}
-            onChange={(e) => {
-              setDescricao(e.target.value);
-            }}
-          />
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-helper-label2">
+              Pagar Com
+            </InputLabel>
+            <Select labelId="demo-simple-select-helper-label2" id="Id_Metodo_Pagamento" label="Pagar Com" size="small" value={carteira} onInput={(e) => { setCarteira(e.target.value); }} onChange={(e) => { setCarteira(e.target.value); }} fullWidth
+            >
+              <MenuItem value={1}>Carteira</MenuItem>
+              <MenuItem value={2}>Conta Reserva</MenuItem>
+              <MenuItem value={3}>Cartoes</MenuItem>
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={4}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-helper-label">
               Categoria
             </InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label"
-              id="demo-simple-select-helper"
-              label="Categoria"
-              size="small"
-              value={categoria}
-              onChange={(e) => {
-                setCategoria(e.target.value);
-              }}
-              fullWidth
-            >
+            <Select labelId="demo-simple-select-helper-label" id="Id_Categoria_Despesa" label="Categoria" size="small" value={categoria} onInput={(e) => { setCategoria(e.target.value); }} onChange={(e) => { setCategoria(e.target.value); }} fullWidth>
               <MenuItem value={1}>Outros</MenuItem>
               <MenuItem value={2}>Alimentacao</MenuItem>
               <MenuItem value={3}>Assinatura e Servicos</MenuItem>
@@ -169,103 +204,74 @@ function Lancamentos() {
           </FormControl>
         </Grid>
         <Grid item xs={3}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-helper-label2">
-              Pagar Com
-            </InputLabel>
-            <Select
-              labelId="demo-simple-select-helper-label2"
-              id="demo-simple-select-helper"
-              label="Pagar Com"
-              size="small"
-              value={carteira}
-              onChange={(e) => {
-                setCarteira(e.target.value);
-              }}
-              fullWidth
-            >
-              <MenuItem value={1}>Carteira</MenuItem>
-              <MenuItem value={2}>Conta Reserva</MenuItem>
-              <MenuItem value={3}>Cartoes</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={3}>
-          <TextField
-            id="outlined-basic"
-            label="Data"
-            type="date"
-            variant="outlined"
-            fullWidth
-            size="small"
-            value={dataPagamento}
-            onChange={(e) => {
-              setDataPagamento(e.target.value);
-            }}
-          />
+          <TextField id="Data_Despesa" label="Data" type="date" fullWidth size="small" value={dataPagamento} onInput={(e) => { setDataPagamento(e.target.value); }} />
         </Grid>
       </Grid>
 
-      <Grid container direction="row" spacing={2} sx={{ marginTop: 2 }}>
-        <Grid sx={{ marginTop: 3 }} item xs={1}>
-          <Fab color="primary" aria-label="add" onClick={registraDados}>
+      <Grid container direction="row" spacing={2} sx={{ marginTop: 4 }}>
+        <div className="botoes">
+          <Fab onClick={registraDados} className="btn-add">
             <IoIcons.IoIosAdd size={30} />
+            <div className="btn-msg">Atualizar ou Gravar Despesa</div>
           </Fab>
-        </Grid>
-        <Grid sx={{ marginTop: 3 }} item xs={1}>
-          <Fab color="secondary" aria-label="add" onClick={resetaForm}>
-            <IconContext.Provider value={{ color: "#fff" }}>
-              <GrIcons.GrPowerReset size={20} />
-            </IconContext.Provider>
+          <Fab onClick={resetaForm} className="btn-clear">
+            <GrIcons.GrPowerReset size={20} />
+            <div className="btn-msg">Limpar Campos</div>
           </Fab>
-        </Grid>
+          <Fab onClick={excluiRegistro} className="btn-remove">
+            <FiIcons.FiTrash2 size={20} />
+            <div className="btn-msg">Excluir Despesa</div>
+          </Fab>
+        </div>
       </Grid>
 
-      {exibiMsg ? (
-        <Alert severity={tipoAlerta} sx={{ marginTop: 10 }}>
-          {msg}
-        </Alert>
-      ) : (
-        false
-      )}
+      {exibiMsg ? (<Alert severity={tipoAlerta} sx={{ marginTop: 10 }}> {msg} </Alert>) : (false)}
 
-      <TableData
-        listen={Listen}
-        table="Despesas LEFT JOIN Metodo_Pagamento ON Id_Metodo = Id_Metodo_Pagamento LEFT JOIN Categoria ON Id_Categoria = Id_Categoria_Despesa"
-        campos="Descricao_Despesa, Data_Despesa, Valor_Despesa, Nome_Metodo, Nome_Categoria"
-        data={[
-          {
-            descricao: "Descricao",
-            width: 300,
-            campoBD: "Descricao_Despesa",
-            align: "left"
-          },
-          {
-            descricao: "Data",
-            width: 200,
-            tipo: "dataBR",
-            campoBD: "Data_Despesa",
-          },
-          {
-            descricao: "Valor",
-            width: 200,
-            tipo: "moeda",
-            campoBD: "Valor_Despesa",
-            align: "right"
-          },
-          {
-            descricao: "Metodo Pagamento",
-            width: 300,
-            campoBD: "Nome_Metodo",
-          },
-          {
-            descricao: "Categoria",
-            width: 250,
-            campoBD: "Nome_Categoria",
-          },
-        ]}
-      ></TableData>
-    </Container>
+      <div style={{ height: '56%', width: "100%", marginTop: 100 }}>
+        <TableData
+          onCellDoubleClick={e => { populaDadosGrid(e) }}
+          table="Despesas LEFT JOIN Metodo_Pagamento ON Id_Metodo = Id_Metodo_Pagamento LEFT JOIN Categoria ON Id_Categoria = Id_Categoria_Despesa"
+          campos="Id_Despesa, Descricao_Despesa, Data_Despesa, Valor_Despesa, Nome_Metodo, Nome_Categoria"
+          data={[
+            {
+              descricao: "Codigo",
+              width: 80,
+              campoBD: "Id_Despesa",
+              align: "right"
+            },
+            {
+              descricao: "Descricao",
+              width: 300,
+              campoBD: "Descricao_Despesa",
+              align: "left"
+            },
+            {
+              descricao: "Data",
+              width: 200,
+              tipo: "dataBR",
+              campoBD: "Data_Despesa",
+            },
+            {
+              descricao: "Valor",
+              width: 200,
+              tipo: "moeda",
+              campoBD: "Valor_Despesa",
+              align: "right"
+            },
+            {
+              descricao: "Metodo Pagamento",
+              width: 300,
+              campoBD: "Nome_Metodo",
+            },
+            {
+              descricao: "Categoria",
+              width: 250,
+              campoBD: "Nome_Categoria",
+            },
+          ]}
+        />
+      </div>
+    </Container >
   );
 }
 

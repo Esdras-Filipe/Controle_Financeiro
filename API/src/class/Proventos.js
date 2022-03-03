@@ -40,8 +40,8 @@ class Proventos extends DB {
                         SELECT 
                             SUM(Valor_Despesa)  AS Despesa
                         FROM Despesas 
-                        WHERE 
-                            IF(EXTRACT(DAY FROM NOW()) >= 7, EXTRACT(YEAR_MONTH FROM Data_Despesa) = EXTRACT(YEAR_MONTH FROM NOW()), EXTRACT(YEAR_MONTH FROM Data_Despesa) = EXTRACT(YEAR_MONTH FROM (DATE_SUB(NOW(), INTERVAL 1 MONTH))))
+                        WHERE  
+                            EXTRACT(MONTH FROM Data_Despesa) = EXTRACT(MONTH FROM DATE_SUB(CURDATE(), INTERVAL 1 MONTH))
                         GROUP BY EXTRACT(MONTH FROM Data_Despesa)
                     ) Despesas,
                     (
@@ -49,7 +49,7 @@ class Proventos extends DB {
                             SUM(Valor_Provento)  AS Provento
                         FROM Proventos 
                         WHERE 
-                            IF(EXTRACT(DAY FROM NOW()) >= 7, EXTRACT(YEAR_MONTH FROM Data_Provento) = EXTRACT(YEAR_MONTH FROM NOW()), EXTRACT(YEAR_MONTH FROM Data_Provento) = EXTRACT(YEAR_MONTH FROM (DATE_SUB(NOW(), INTERVAL 1 MONTH))))
+                            EXTRACT(MONTH FROM Data_Provento) = EXTRACT(MONTH FROM DATE_SUB(CURDATE(), INTERVAL 1 MONTH))
                         GROUP BY EXTRACT(MONTH FROM Data_Provento)
                     ) Proventos`;
             this.exceSelect(query).then((rows) => {

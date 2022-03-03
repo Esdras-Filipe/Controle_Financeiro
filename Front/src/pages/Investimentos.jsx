@@ -167,17 +167,16 @@ export default (props) => {
           </Grid>
         </Grid>
 
-        <Grid container direction="row" spacing={2} sx={{ marginTop: 2 }}>
-          <Grid sx={{ marginTop: 3 }} item xs={1}>
+        <Grid container direction="row" spacing={2} sx={{ marginTop: 4 }}>
+          <div className="botoes">
             <Fab color="primary" aria-label="add" onClick={registraDados}>
               <IoIcons.IoIosAdd size={30} />
             </Fab>
-          </Grid>
-          <Grid sx={{ marginTop: 3 }} item xs={1}>
+
             <Fab color="secondary" aria-label="add" onClick={resetaForm}>
               <GrIcons.GrPowerReset size={20} />
             </Fab>
-          </Grid>
+          </div>
         </Grid>
 
         {exibiMsg ? (
@@ -188,44 +187,46 @@ export default (props) => {
           false
         )}
 
-        <TableData
-          table="Investimentos"
-          campos={`Codigo_Investimentos, Data_Investimento, IF(Quantidade_Investimento = 0, "", Quantidade_Investimento) AS Quantidade_Investimento, Valor_Investimento, CASE WHEN Categoria = 1 THEN "FII'S" ELSE 'CDB' END AS Categoria`}
-          data={[
-            {
-              descricao: "Codigo",
-              width: 300,
-              campoBD: "Codigo_Investimentos",
-              align: "left"
-            },
-            {
-              descricao: "Data",
-              width: 200,
-              tipo: "dataBR",
-              campoBD: "Data_Investimento",
-            },
-            {
-              descricao: "Quantidade",
-              width: 200,
-              tipo: "numero",
-              campoBD: "Quantidade_Investimento",
-              align: "right"
-            },
-            {
-              descricao: "Valor",
-              width: 200,
-              tipo: "moeda",
-              campoBD: "Valor_Investimento",
-              align: "right"
-            },
-            {
-              descricao: "Categoria",
-              width: 300,
-              tipo: "valor",
-              campoBD: "Categoria",
-            },
-          ]}
-        ></TableData>
+        <div style={{ height: 500, width: "100%", marginTop: 100 }}>
+          <TableData
+            table="Investimentos"
+            campos={`Codigo_Investimentos, Data_Investimento, IF(Quantidade_Investimento = 0, "", Quantidade_Investimento) AS Quantidade_Investimento, Valor_Investimento, CASE WHEN Categoria = 1 THEN "FII'S" ELSE 'CDB' END AS Categoria`}
+            data={[
+              {
+                descricao: "Codigo",
+                width: 300,
+                campoBD: "Codigo_Investimentos",
+                align: "left"
+              },
+              {
+                descricao: "Data",
+                width: 200,
+                tipo: "dataBR",
+                campoBD: "Data_Investimento",
+              },
+              {
+                descricao: "Quantidade",
+                width: 200,
+                tipo: "numero",
+                campoBD: "Quantidade_Investimento",
+                align: "right"
+              },
+              {
+                descricao: "Valor",
+                width: 200,
+                tipo: "moeda",
+                campoBD: "Valor_Investimento",
+                align: "right"
+              },
+              {
+                descricao: "Categoria",
+                width: 300,
+                tipo: "valor",
+                campoBD: "Categoria",
+              },
+            ]}
+          />
+        </div>
       </Container>
     </>
   );

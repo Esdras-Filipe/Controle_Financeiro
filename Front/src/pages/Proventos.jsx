@@ -152,16 +152,14 @@ export default () => {
       </Grid>
 
       <Grid container sx={{ marginTop: 4 }}>
-        <Grid item xs={1}>
+        <div className="botoes">
           <Fab color="primary" aria-label="add" onClick={adicionaProvento}>
             <IoIcons.IoIosAdd size={30} />
           </Fab>
-        </Grid>
-        <Grid item xs={1}>
           <Fab color="secondary" aria-label="add" onClick={resetaForm}>
             <GrIcons.GrPowerReset size={20} />
           </Fab>
-        </Grid>
+        </div>
       </Grid>
 
       {exibiMsg ? (
@@ -172,41 +170,40 @@ export default () => {
         false
       )}
 
-      <TableData
-        onCellDoubleClick={(e) => {
-          alert("Teste");
-        }}
-        table="proventos"
-        campos="Descricao_Provento, Data_Provento, Valor_Provento, CASE WHEN Evento_Fixo = 'S' THEN  'SIM' ELSE 'Nao' END AS Evento_Fixo"
-        data={[
-          {
-            descricao: "Descricao",
-            width: 300,
-            campoBD: "Descricao_Provento",
-            align: "left"
-          },
-          {
-            descricao: "Data",
-            width: 200,
-            tipo: "dataBR",
-            campoBD: "Data_Provento",
-          },
-          {
-            descricao: "Valor",
-            width: 200,
-            tipo: "moeda",
-            campoBD: "Valor_Provento",
-            align: "right"
-          },
-          {
-            descricao: "Evento Fixo",
-            width: 300,
-            tipo: "moeda",
-            campoBD: "Evento_Fixo",
-          },
-        ]}
-        header="Descricao, Data, Valor"
-      ></TableData>
+      <div style={{ height: 500, width: "100%", marginTop: 100 }}>
+        <TableData
+          table="proventos"
+          campos="Descricao_Provento, Data_Provento, Valor_Provento, CASE WHEN Evento_Fixo = 'S' THEN  'SIM' ELSE 'Nao' END AS Evento_Fixo"
+          data={[
+            {
+              descricao: "Descricao",
+              width: 300,
+              campoBD: "Descricao_Provento",
+              align: "left"
+            },
+            {
+              descricao: "Data",
+              width: 200,
+              tipo: "dataBR",
+              campoBD: "Data_Provento",
+            },
+            {
+              descricao: "Valor",
+              width: 200,
+              tipo: "moeda",
+              campoBD: "Valor_Provento",
+              align: "right"
+            },
+            {
+              descricao: "Evento Fixo",
+              width: 300,
+              tipo: "moeda",
+              campoBD: "Evento_Fixo",
+            },
+          ]}
+          header="Descricao, Data, Valor"
+        />
+      </div>
     </Container>
   );
 };

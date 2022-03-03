@@ -70,10 +70,6 @@ export default (props) => {
   }, []);
 
   return (
-    <>
-      <div style={{ height: 500, width: "100%", marginTop: 100 }}>
-        <DataGrid rows={Data} columns={Header} />
-      </div>
-    </>
+    <DataGrid rows={Data} columns={Header} {...props} />
   );
 };

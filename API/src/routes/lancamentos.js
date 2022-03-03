@@ -31,8 +31,17 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/', function (req, res) {
-    res.status(200).send({
-        status: "success"
+    const lancamentos = new Lancamentos({ id: req.query.id });
+
+    lancamentos.delete().then((response) => {
+        res.status(200).send({
+            status: "success"
+        });
+    }).catch((error) => {
+        res.status(500).send({
+            status: "error",
+            sqlMessage: error
+        });
     });
 });
 

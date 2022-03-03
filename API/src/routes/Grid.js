@@ -5,7 +5,6 @@ const Grid = require("../class/Grid");
 router.post("/", async function (req, res) {
   let body = { ...req.body };
   let grid = new Grid(body);
-
   grid
     .buscaDados()
     .then((response) => {
