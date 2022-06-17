@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+var express         = require('express');
+var router          = express.Router();
 const Investimentos = require('../class/Investimentos');
 
 router.get('/', async function (req, res) {
@@ -31,8 +31,17 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/', function (req, res) {
-    res.status(200).send({
-        status: "success"
+    const investimentos = new Investimentos({ id: req.query.id });
+
+    investimentos.delete().then(() => {
+        res.status(200).send({
+            status: "success"
+        });
+    }).catch((error) => {
+        res.status(500).send({
+            status: "error",
+            sqlMessage: error
+        });
     });
 });
 

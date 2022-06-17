@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Proventos(
     Id_Provento INT AUTO_INCREMENT,
     Valor_Provento DOUBLE NOT NULL DEFAULT 0.00,
     Data_Provento DATETIME DEFAULT NOW(),
-    Evento_Fixo ENUM('S','N') DEFAULT 'N',
+    Evento_Fixo CHAR(1) DEFAULT 'N',
     Descricao_Provento VARCHAR(80),
     PRIMARY KEY (Id_Provento)
 );

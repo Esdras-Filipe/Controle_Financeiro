@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+var express       = require('express');
+var router        = express.Router();
 const Lancamentos = require('../class/Lancamentos');
 
 router.get('/', async function (req, res) {

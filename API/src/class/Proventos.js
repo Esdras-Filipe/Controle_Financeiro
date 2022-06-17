@@ -2,6 +2,7 @@ const DB = require("./connection/DB");
 
 class Proventos extends DB {
 
+    id;
     valor;
     data;
     eventoFixo
@@ -10,10 +11,11 @@ class Proventos extends DB {
     constructor(props) {
         super()
         if (props != undefined) {
-            this.valor = props.valor;
-            this.data = props.data;
+            this.id         = props.id
+            this.valor      = props.valor;
+            this.data       = props.data;
             this.eventoFixo = props.eventoFixo;
-            this.descricao = props.descricao;
+            this.descricao  = props.descricao;
         }
     }
 
@@ -60,6 +62,16 @@ class Proventos extends DB {
         })
     }
 
+    async delete() {
+        let query = `DELETE FROM proventos WHERE Id_Provento = ${this.id}`;
+        return new Promise((resolve, reject) => {
+            this.execQuery(query).then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        })
+    }
 }
 
 module.exports = Proventos;

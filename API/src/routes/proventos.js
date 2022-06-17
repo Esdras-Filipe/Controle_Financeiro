@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+var express     = require('express');
+var router      = express.Router();
 const Proventos = require('../class/Proventos');
 
 router.get('/', async function (req, res) {
@@ -47,8 +47,17 @@ router.put('/', function (req, res) {
 });
 
 router.delete('/', function (req, res) {
-    res.status(200).send({
-        status: "success"
+    const proventos = new Proventos({ id: req.query.id });
+
+    proventos.delete().then((response) => {
+        res.status(200).send({
+            status: "success"
+        });
+    }).catch((error) => {
+        res.status(500).send({
+            status: "error",
+            sqlMessage: error
+        });
     });
 });
 

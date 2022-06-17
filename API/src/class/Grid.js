@@ -7,9 +7,9 @@ class Grid extends DB {
 
   constructor(params) {
     super();
-    this.table = params.table;
+    this.table  = params.table;
     this.campos = params.campos;
-    this.where = params.where ?? undefined;
+    this.where  = params.where ?? undefined;
   }
 
   async buscaDados() {
@@ -17,11 +17,9 @@ class Grid extends DB {
       let query = `SELECT ${this.campos} FROM ${this.table} ` + (this.where != undefined ? ` WHERE ${this.where}` : "");
       this.exceSelect(query)
         .then((rows) => {
-          console.log("deu certo");
           resolve(rows);
         })
         .catch(() => {
-          console.log("deu errado");
           reject();
         });
     });

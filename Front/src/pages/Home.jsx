@@ -1,10 +1,10 @@
 import { React, useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid }                       from "@mui/material";
+import GraphDespesas                  from "../components/Graphs/Despesas/Despesas";
+import GraphProventos                 from "../components/Graphs/Proventos/Proventos";
+import GraphInveProve                 from "../components/Graphs/Investimentos/Proventos";
+import TableInvestimentos             from "../components/Graphs/Investimentos/InvestimentosTable";
 import "../css/Home.css";
-import GraphDespesas from "../components/Graphs/Despesas/Despesas";
-import GraphProventos from "../components/Graphs/Proventos/Proventos";
-import GraphInveProve from "../components/Graphs/Investimentos/Proventos";
-import TableInvestimentos from "../components/Graphs/Investimentos/InvestimentosTable";
 
 export default function Home() {
   const [Mensagem, setMensagem] = useState("");

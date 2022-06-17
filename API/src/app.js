@@ -1,9 +1,9 @@
-const express = require('express')
-const app = express()
-const port = 3002
+const express    = require('express')
+const app        = express()
+const port       = 3002
 const bodyParser = require('body-parser')
-const router = require('./routes');
-const cors = require('cors');
+const router     = require('./routes');
+const cors       = require('cors');
 
 app.use((req, res, next) => {
     //Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão

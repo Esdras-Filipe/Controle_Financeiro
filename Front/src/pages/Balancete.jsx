@@ -1,18 +1,17 @@
 import { React, useState, useEffect } from "react";
-import * as AiIcons from 'react-icons/ai';
-import { Container, Grid, Card, CardContent, Button, Typography } from '@mui/material';
-import api from '../api';
+import * as AiIcons                   from 'react-icons/ai';
+import { Container, Button }          from '@mui/material';
+import api                            from '../api';
 import "../css/Balancete.css";
 
-export default props => {
-    const [exibeDados, setExibeDados] = useState(false);
-    const [statusBalanco, setStatus] = useState("positivo");
+export default () => {
+    const [exibeDados, setExibeDados]         = useState(false);
+    const [statusBalanco, setStatus]          = useState("positivo");
     const [valorBalancete, setValorBalancete] = useState((0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }));
 
     useEffect(() => {
         api.get('proventos/balancete').then((response) => {
             if (response.data.data != undefined) {
-
                 if (response.data.data[0].Balancente < 0) {
                     setStatus("negativo")
                 } else {
@@ -23,11 +22,9 @@ export default props => {
         }).catch((error) => {
             console.log(error)
         })
-    }, [])
+    }, []);
 
-    function demonstraDados() {
-        setExibeDados(!exibeDados);
-    }
+    function demonstraDados() { setExibeDados(!exibeDados); }
 
     return (
         <>

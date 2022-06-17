@@ -1,38 +1,27 @@
 import { React, useState } from "react";
-import * as IoIcons from "react-icons/io";
-import * as GrIcons from "react-icons/gr";
-import * as AiIcons from "react-icons/ai";
-import * as FiIcons from "react-icons/fi";
-import { IconContext } from "react-icons";
-import {
-  Container,
-  Grid,
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  Fab,
-  Alert,
-} from "@mui/material/";
-import api from "../api";
-import CurrencyTextField from "../components/CurrencyInput";
-import TableData from "../components/Grid/Grid";
-import SearchInput from "../components/SearchField/TextFieldSearch";
+import * as IoIcons        from "react-icons/io";
+import * as GrIcons        from "react-icons/gr";
+import * as FiIcons        from "react-icons/fi";
+import api                 from "../api";
+import CurrencyTextField   from "../components/CurrencyInput";
+import TableData           from "../components/Grid/Grid";
+import SearchInput         from "../components/SearchField/TextFieldSearch";
+import { Container, Grid, TextField, Select, MenuItem, InputLabel, FormControl, Fab, Alert } from "@mui/material/";
 
 function Lancamentos() {
   const dataAtual = new Date().getFullYear() + "-" + (new Date().getMonth() + 1).toString().padStart(2, 0) + "-" + new Date().getDate().toString().padStart(2, 0);
 
-  const [categoria, setCategoria] = useState(1);
-  const [valor, setValor] = useState("");
-  const [carteira, setCarteira] = useState(1);
+  const [categoria, setCategoria]         = useState(1);
+  const [valor, setValor]                 = useState("");
+  const [carteira, setCarteira]           = useState(1);
   const [dataPagamento, setDataPagamento] = useState(dataAtual);
-  const [descricao, setDescricao] = useState("");
-  const [listen, setListen] = useState(false);
+  const [descricao, setDescricao]         = useState("");
 
-  const [msg, setMsg] = useState("");
-  const [exibiMsg, setExibiMsg] = useState(false);
-  const [tipoAlerta, setTipoAlerta] = useState("success");
+  const [msg, setMsg]                     = useState("");
+  const [exibiMsg, setExibiMsg]           = useState(false);
+  const [tipoAlerta, setTipoAlerta]       = useState("success");
+  const [recarega, setRecarrega]          = useState(false);
+  const [listen, setListen]               = useState(false);
 
   function resetaForm() {
     setCategoria(1);
@@ -44,7 +33,7 @@ function Lancamentos() {
   }
 
   async function populaDadosGrid(evento) {
-    let elemento = document.querySelector("#Id_Despesa");
+    let elemento   = document.querySelector("#Id_Despesa");
     elemento.value = evento.row.col0;
     await elemento.dispatchEvent(new Event('input', { bubbles: true }));
     document.querySelector("#button-search").dispatchEvent(new Event('click', { bubbles: true }));
@@ -54,31 +43,28 @@ function Lancamentos() {
     let elemento = document.querySelector("#Id_Despesa");
 
     if (elemento.getAttribute("popula") != 'false') {
-      alert(elemento.value);
-      api
-        .delete(`Lancamentos?id=${elemento.value}`, {
-          id: elemento.value
-        })
-        .then((response) => {
-          if (response.data.status === "success") {
-            setExibiMsg(true);
-            setMsg("Despesa Excluida Com Sucesso!");
-            setTipoAlerta("success");
-            resetaMsg();
-            resetaForm();
-          } else {
-            setExibiMsg(true);
-            setMsg("Ocorreu um Erro ao Excluir a Despesa. Favor Conferir!");
-            setTipoAlerta("warning");
-            resetaMsg();
-          }
-        })
-        .catch((response) => {
+      api.delete(`Lancamentos?id=${elemento.value}`, {
+        id: elemento.value
+      }).then((response) => {
+        if (response.data.status === "success") {
+          setExibiMsg(true);
+          setMsg("Despesa Excluida Com Sucesso!");
+          setRecarrega(!recarega);
+          setTipoAlerta("success");
+          resetaMsg();
+          resetaForm();
+        } else {
           setExibiMsg(true);
           setMsg("Ocorreu um Erro ao Excluir a Despesa. Favor Conferir!");
-          setTipoAlerta("error");
+          setTipoAlerta("warning");
           resetaMsg();
-        });
+        }
+      }).catch((response) => {
+        setExibiMsg(true);
+        setMsg("Ocorreu um Erro ao Excluir a Despesa. Favor Conferir!");
+        setTipoAlerta("error");
+        resetaMsg();
+      });
     } else {
       setExibiMsg(true);
       setMsg("Nao Existe Despesa com esse ID para ser excluida!");
@@ -105,34 +91,32 @@ function Lancamentos() {
       return false;
     }
 
-    api
-      .post("Lancamentos", {
-        valor: valor.replace("R$", "").replace(".", "").replace(",", "."),
-        categoria: categoria,
-        tipoPagamento: carteira,
-        data: dataPagamento,
-        descricao: descricao,
-      })
-      .then((response) => {
-        if (response.data.status === "success") {
-          setExibiMsg(true);
-          setMsg("Despesa Cadastrada Com Sucesso!");
-          setTipoAlerta("success");
-          resetaMsg();
-          resetaForm();
-        } else {
-          setExibiMsg(true);
-          setMsg("Ocorreu um Erro ao Cadastrar a Despesa. Favor Conferir!");
-          setTipoAlerta("warning");
-          resetaMsg();
-        }
-      })
-      .catch((response) => {
+    api.post("Lancamentos", {
+      valor: valor.replace("R$", "").replace(".", "").replace(",", "."),
+      categoria: categoria,
+      tipoPagamento: carteira,
+      data: dataPagamento,
+      descricao: descricao,
+    }).then((response) => {
+      if (response.data.status === "success") {
+        setExibiMsg(true);
+        setMsg("Despesa Cadastrada Com Sucesso!");
+        setTipoAlerta("success");
+        setRecarrega(!recarega);
+        resetaMsg();
+        resetaForm();
+      } else {
         setExibiMsg(true);
         setMsg("Ocorreu um Erro ao Cadastrar a Despesa. Favor Conferir!");
-        setTipoAlerta("error");
+        setTipoAlerta("warning");
         resetaMsg();
-      });
+      }
+    }).catch((response) => {
+      setExibiMsg(true);
+      setMsg("Ocorreu um Erro ao Cadastrar a Despesa. Favor Conferir!");
+      setTipoAlerta("error");
+      resetaMsg();
+    });
   }
 
   async function resetaMsg() {
@@ -142,11 +126,7 @@ function Lancamentos() {
   }
 
   return (
-    <Container
-      maxWidth="xl"
-      spacing={24}
-      sx={{ marginTop: 2, height: "98.1vh" }}
-    >
+    <Container maxWidth="xl" spacing={24} sx={{ marginTop: 2, height: "98.1vh" }}>
       <h2>Lançamentos de Despesas</h2>
       <Grid container direction="row" spacing={2} sx={{ marginTop: 5 }}>
         <Grid item xs={4}>
@@ -230,6 +210,7 @@ function Lancamentos() {
       <div style={{ height: '56%', width: "100%", marginTop: 100 }}>
         <TableData
           onCellDoubleClick={e => { populaDadosGrid(e) }}
+          change={recarega}
           table="Despesas LEFT JOIN Metodo_Pagamento ON Id_Metodo = Id_Metodo_Pagamento LEFT JOIN Categoria ON Id_Categoria = Id_Categoria_Despesa"
           campos="Id_Despesa, Descricao_Despesa, Data_Despesa, Valor_Despesa, Nome_Metodo, Nome_Categoria"
           data={[

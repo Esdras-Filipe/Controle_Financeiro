@@ -77,14 +77,40 @@ class Graphs extends DB {
                     Codigo_Investimentos          AS Codigo_Investimentos
                     ,SUM(Valor_Investimento)      AS Valor_Investimentos
                     ,SUM(Quantidade_Investimento) AS Qtde_Ativos
-                    , CASE 
+                    ,CASE 
                         WHEN Categoria = 1 THEN 'CDB'
-                        WHEN Categoria = 2 THEN "FII'S"
                     END AS Tipo_Investimento 
                 FROM 
-                    Investimentos 
+                    Investimentos
+                WHERE
+                    Categoria = 1
                 GROUP BY 
-                    TRIM(Codigo_Investimentos);`;
+                    Codigo_Investimentos
+                    
+                UNION ALL
+                
+                SELECT 
+                    Codigo_Investimentos          AS Codigo_Investimentos
+                    ,SUM(Valor_Investimento)      AS Valor_Investimentos
+                    ,SUM(Quantidade_Investimento) AS Qtde_Ativos
+                    ,CASE 
+                        WHEN Categoria = 1 THEN 'CDB'
+                    END AS Tipo_Investimento 
+                FROM (
+                    SELECT 
+                        CASE
+                            WHEN Categoria = 2 THEN TRUNCATE(Quantidade_Investimento * Valor_Investimento,2)
+                        END AS Valor_Investimento
+                        ,Codigo_Investimentos
+                        ,Quantidade_Investimento
+                        ,Categoria
+                    FROM Investimentos
+                    WHERE 
+                        Categoria = 2
+                    GROUP BY Data_Investimento
+                ) tab
+                GROUP BY 
+                    Codigo_Investimentos`;
             this.exceSelect(query).then((rows) => {
                 resolve(rows)
             }).catch(() => {

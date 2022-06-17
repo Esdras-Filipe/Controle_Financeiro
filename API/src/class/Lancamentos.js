@@ -11,12 +11,12 @@ class Lancamentos extends DB {
 
     constructor(params) {
         super();
-        this.id = params.id ?? null
-        this.valor = params.valor;
-        this.categoria = params.categoria;
+        this.id            = params.id ?? null
+        this.valor         = params.valor;
+        this.categoria     = params.categoria;
         this.tipoPagamento = params.tipoPagamento;
-        this.data = params.data;
-        this.descricao = params.descricao;
+        this.data          = params.data;
+        this.descricao     = params.descricao;
     }
 
     async insert() {
